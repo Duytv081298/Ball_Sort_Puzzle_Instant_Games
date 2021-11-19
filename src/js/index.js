@@ -228,29 +228,14 @@ class Main {
     btn_back.scale.set(scale_btn_setting, scale_btn_setting);
     btn_back.position.set(this.app.screen.width - this.app.screen.width * 0.1 - btn_back.width, btn_retry.y);
 
-    const btn_next = PIXI.Sprite.from(this.loader.resources.buttons.textures["btn_next.png"]);
-    btn_next.name = 'btn_next'
-    const scale_btn_next = (this.app.screen.width / 6) / btn_next.width
-    btn_next.scale.set(scale_btn_next, scale_btn_next);
-    btn_next.position.set(this.app.screen.width / 2 + btn_next.getBounds().width / 2, 0);
-
-    const btn_Back_temp = PIXI.Sprite.from(this.loader.resources.buttons.textures["btn_next.png"]);
-    btn_Back_temp.name = 'btn_Back_temp'
-    btn_Back_temp.scale.set(scale_btn_next, scale_btn_next);
-    btn_Back_temp.scale.x *= -1;
-    btn_Back_temp.position.set(this.app.screen.width / 2 - btn_Back_temp.width / 2, 0);
-
-
-    if (this.player.level == 1) this.buttonContainer.addChild(btn_setting, btn_ads, separator_line, btn_next, btn_Back_temp);
+    if (this.player.level == 1) this.buttonContainer.addChild(btn_setting, btn_ads, separator_line, );
     else {
-      this.buttonContainer.addChild(btn_setting, btn_ads, separator_line, btn_retry, btn_back, btn_next, btn_Back_temp);
+      this.buttonContainer.addChild(btn_setting, btn_ads, separator_line, btn_retry, btn_back);
       this.drawTextBack()
     }
     btn_setting.interactive = true;
     btn_retry.interactive = true;
     btn_back.interactive = true;
-    btn_next.interactive = true;
-    btn_Back_temp.interactive = true;
 
 
     btn_setting.on('pointerdown', () => {
@@ -268,15 +253,9 @@ class Main {
     });
     btn_retry.on('pointerdown', () => {
       this.playSoundClickButton()
-      this.back = 5
-      this.setDefautBack()
-      this.drawTextBack()
-      if (this.player.level == 3 || btn_ads.interactive == false) {
-        btn_ads.alpha = 1;
-        btn_ads.interactive = true;
+      if(this.game.listBottleB.length != 0){
+      this.ads_facebook.showInterstitial('retry')
       }
-      this.removePlus()
-      this.game.restartLevel()
     });
     btn_back.on('pointerdown', () => {
       this.playSoundClickButton()
@@ -301,18 +280,18 @@ class Main {
       // console.log('click btn_back');
 
     });
-    btn_next.on('pointerdown', () => {
-      this.playSoundClickButton()
-      if (this.adSupport) this.ads_facebook.showInterstitial()
-      else this.nextLevel()
-    });
-    btn_Back_temp.on('pointerdown', () => {
-      this.playSoundClickButton()
-      this.back = 5
-      this.setDefautBack()
-      this.drawTextBack()
-      this.backLevel()
-    });
+  }
+  retryInMain(){
+    this.back = 5
+    this.setDefautBack()
+    this.drawTextBack()
+    const btn_ads = this.buttonContainer.getChildByName("btn_ads")
+    if (this.player.level == 3 || btn_ads.interactive == false) {
+      btn_ads.alpha = 1;
+      btn_ads.interactive = true;
+    }
+    this.removePlus()
+    this.game.restartLevel()
   }
   removePlus() {
     var plusAds = this.buttonContainer.getChildByName('plusAds')

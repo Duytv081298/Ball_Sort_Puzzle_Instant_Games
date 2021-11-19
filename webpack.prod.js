@@ -17,16 +17,16 @@ module.exports = merge(config, {
         terserOptions: {
           format: {
             comments: false,
-            
+
           },
-          compress: { 
+          compress: {
             pure_funcs: [
-                'console.log', 
-                'console.info', 
-                'console.debug', 
-                'console.warn'
-            ] 
-        } 
+              'console.log',
+              'console.info',
+              'console.debug',
+              'console.warn'
+            ]
+          }
         },
         extractComments: false,
       }),

@@ -1,7 +1,7 @@
 
 const INTERSTITIAL_PLACEMENT_ID = '335423665035241_383656783545262';
 const REWARDED_PLACEMENT_ID = '335423665035241_383656893545251';
-const REWARDED_BANNER_ID = ' 335423665035241_383656280211979';
+const REWARDED_BANNER_ID = '335423665035241_383656276878646';
 
 var nextLevelVideo = null;
 var videoAddbottle = null;
@@ -30,17 +30,19 @@ export default class Ads {
         });
     }
 
-    showInterstitial() {
+    showInterstitial(param) {
         nextLevelVideo.showAsync()
             .then(() => {
                 console.log('Interstitial ad finished successfully');
-                this.main.nextLevel()
+                if (param == 'retry') this.main.retryInMain()
+                else this.main.nextLevel()
                 this.loadInterstitialAdAsync()
             }).catch((e) => {
                 console.error(e);
                 console.error(e.message);
                 if (e.code == 'RATE_LIMITED') {
-                    this.main.nextLevel()
+                    if (param == 'retry') this.main.retryInMain()
+                    else this.main.nextLevel()
                     this.loadInterstitialAdAsync()
                 }
             });
@@ -53,8 +55,7 @@ export default class Ads {
             console.log('loadBannerAdAsync resolved.');
         }).catch(function (err) {
             console.error('Banner failed to load: ' + err.message);
-        }
-        );
+        });
     }
 
 

@@ -433,8 +433,9 @@ export default class Game {
         gsap.timeline()
             .to(ball, { x: x1, y: y1, duration: timeRight, ease: "none" })
             .to(ball, { y: y2, duration: TIMEMOVEDOWN, ease: "none" })
-            .eventCallback("onComplete", () => { if (num == 1) this.leapBall(ball, newChoose.index, x1, y1, bottleComplete) });
-        setTimeout(() => { this.PlaySound("ball_fall_" + num) }, timeRight + TIMEMOVEDOWN / 2);
+            .eventCallback("onComplete", () => { 
+                this.PlaySound("ball_fall_" + num)
+                if (num == 1) this.leapBall(ball, newChoose.index, x1, y1, bottleComplete) });
 
         complete++
         i++
