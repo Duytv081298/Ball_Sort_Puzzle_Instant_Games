@@ -19,14 +19,14 @@ module.exports = merge(config, {
             comments: false,
             
           },
-        //   compress: { 
-        //     pure_funcs: [
-        //         'console.log', 
-        //         'console.info', 
-        //         'console.debug', 
-        //         'console.warn'
-        //     ] 
-        // } 
+          compress: { 
+            pure_funcs: [
+                'console.log', 
+                'console.info', 
+                'console.debug', 
+                'console.warn'
+            ] 
+        } 
         },
         extractComments: false,
       }),
